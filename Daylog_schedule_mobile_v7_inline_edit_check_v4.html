@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)file:///C:/Users/user/Desktop/PILLOW.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Daylog</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Pretendard,Arial,sans-serif;
+}
+
+body{
+margin:0;
+background:#f7f9f8;
+color:#18251f;
+}
+
+
+.app{
+max-width:520px;
+margin:auto;
+padding:22px 18px 30px;
+}
+
+
+
+/* HEADER */
+
+.header{
+
+background:#12352a;
+
+color:white;
+
+padding:22px 24px;
+
+border-radius:22px;
+
+}
+
+
+.header h1{
+margin:0;
+font-size:26px;
+letter-spacing:-0.8px;
+}
+
+
+.header p{
+display:none;
+}
+
+
+
+/* DATE */
+
+.date-card{
+
+background:white;
+
+padding:16px;
+
+border-radius:20px;
+
+margin-top:15px;
+
+}
+
+
+.date-card input{
+
+width:100%;
+
+border:none;
+
+font-size:17px;
+
+}
+
+
+
+/* MENU */
+
+
+.menu{
+
+display:grid;
+
+grid-template-columns:repeat(5,1fr);
+
+gap:8px;
+
+margin:18px 0;
+
+}
+
+
+.menu button{
+
+border:0;
+
+background:white;
+
+padding:12px 5px;
+
+border-radius:15px;
+
+font-size:18px;
+
+}
+
+
+.menu button.active{
+
+background:#237047;
+
+color:white;
+
+}
+
+
+
+/* PAGE */
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+
+
+/* CARD */
+
+
+.card{
+
+background:white;
+
+padding:20px;
+
+border-radius:24px;
+
+margin-bottom:15px;
+
+box-shadow:0 5px 20px #00000010;
+
+}
+
+
+.title{
+
+font-size:18px;
+
+font-weight:bold;
+
+margin-bottom:15px;
+
+}
+
+
+
+/* INPUT */
+
+input{
+
+width:100%;
+
+padding:12px;
+
+border-radius:12px;
+
+border:1px solid #ddd;
+
+margin-bottom:8px;
+
+}
+
+
+
+.add-btn{
+
+background:#237047;
+
+color:white;
+
+border:0;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+}
+
+
+
+/* ITEM */
+
+
+.item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:#f5faf5;
+
+padding:12px;
+
+border-radius:14px;
+
+margin-top:8px;
+
+}
+
+
+
+.action button{
+
+border:0;
+
+border-radius:50%;
+
+width:34px;
+
+height:34px;
+
+margin-left:4px;
+
+}
+
+
+.edit-btn{
+background:#ffffff;
+border:1px solid #ccc;
+}
+
+.complete{
+
+background:#3fa267;
+
+color:white;
+
+font-size:22px;
+font-weight:bold;
+
+}
+
+
+.incomplete{
+
+background:#e8e8e8;
+
+}
+
+
+/* 체크 O 크게 표시 */
+.check-o{
+    font-size:25px !important;
+    font-weight:900;
+    line-height:1;
+}
+
+.check-x{
+    font-size:13px;
+}
+
+/* 체크 버튼 정렬 보정 */
+.action{
+    display:flex;
+    align-items:center;
+}
+
+.action button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+
+
+.item span{
+    font-size:13px;
+    line-height:1.4;
+}
+
+/* PROGRESS */
+
+
+.progress{
+
+height:12px;
+
+background:#dde9df;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+
+.progress-bar{
+
+height:100%;
+
+background:#3fa267;
+
+}
+
+
+
+/* DDAY */
+
+
+.dday{
+
+font-size:38px;
+
+font-weight:bold;
+
+color:#237047;
+
+}
+
+
+
+/* HOME LIST REFINEMENT */
+#homeTodo, #homeRoutine, #homeEvent, #homeStudy{
+line-height:2;
+font-size:15px;
+color:#34483d;
+}
+
+#homeTodo br, #homeRoutine br, #homeEvent br{
+content:"";
+display:block;
+margin-bottom:8px;
+}
+
+button{
+cursor:pointer;
+transition:.2s ease;
+}
+
+button:active{
+transform:scale(.96);
+}
+
+.month-label{
+font-size:14px;
+font-weight:700;
+color:#173b2b;
+margin-bottom:10px;
+}
+
+.date-scroll{
+display:flex;
+gap:8px;
+overflow-x:auto;
+}
+
+.date-btn{
+min-width:42px;
+height:42px;
+border:1px solid #dce5df;
+background:#fff;
+border-radius:12px;
+font-weight:600;
+color:#506158;
+}
+
+.date-btn.active{
+background:#12352a;
+color:#fff;
+border-color:#173b2b;
+}
+
+
+.home-calendar{
+ display:grid;
+ grid-template-columns:repeat(7,1fr);
+ gap:8px;
+ margin-bottom:15px;
+}
+.home-calendar span{
+ height:34px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:50%;
+ position:relative;
+ font-size:14px;
+}
+.home-calendar .event-mark::before{
+ content:"";
+ position:absolute;
+ width:32px;
+ height:32px;
+ background:#b8f56a;
+ border-radius:50%;
+ z-index:0;
+ opacity:.75;
+}
+.home-calendar span b{
+ z-index:1;
+}
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<div class="header">
+
+<h1>🌿 Daylog</h1>
+
+<p>나의 하루를 관리하는 공간</p>
+
+</div>
+
+
+
+<div class="date-card">
+<div class="month-label" id="monthLabel"></div>
+<div class="date-scroll" id="dateSelector"></div>
+<input type="date" id="selectedDate" style="display:none;">
+</div>
+
+
+
+<div class="menu">
+
+<button class="active" data-page="home">🏠</button>
+
+<button data-page="todo" class="">✅</button>
+
+<button data-page="routine" class="">🌱</button>
+
+<button data-page="study" class="">📚</button>
+
+<button data-page="calendar" class="">📅</button>
+
+</div>
+
+
+
+
+
+<!-- HOME -->
+
+<div id="home" class="page active">
+
+
+<div class="card">
+
+<div class="title">
+오늘 달성률
+</div>
+
+<div class="dday" id="totalPercent">33%</div>
+
+
+<div class="progress">
+
+<div class="progress-bar" id="totalBar" style="width: 33%;">
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+<div class="title">
+✅ 오늘 할 일
+</div>
+
+<div id="homeTodo">등록된 할 일 없음</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="title">
+🌱 오늘 루틴
+</div>
+
+<div id="homeRoutine">등록된 루틴 없음</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+📚 시험
+</div>
+
+<div id="homeStudy">
+<b>대기환경기사 실기</b><br>
+
+D-24<br>
+
+진도율 0%
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+📅 일정
+</div>
+
+<div id="homeEventCalendar"></div>
+<div id="homeEvent">등록된 일정 없음</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- TODO -->
+
+<div id="todo" class="page">
+
+
+<div class="card">
+
+
+<div class="title">
+✅ 오늘 할 일
+</div>
+
+
+<input id="todoInput" placeholder="할 일을 입력하세요">
+
+
+<button class="add-btn" id="addTodoBtn">
+추가
+</button>
+
+
+<div id="todoList">
+
+<div class="item">
+
+
+<span>14:30 밴스의원 제모</span>
+
+
+<div class="action">
+
+
+<button class="complete" onclick="todoToggle(0,true)">
+○
+</button>
+
+
+<button class="incomplete" onclick="todoToggle(0,false)">
+✕
+</button>
+
+
+<button onclick="todoDelete(0)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>16:30-18:00 수질오염모델링</span>
+
+
+<div class="action">
+
+
+<button class="complete" onclick="todoToggle(1,true)">
+○
+</button>
+
+
+<button class="incomplete" onclick="todoToggle(1,false)">
+✕
+</button>
+
+
+<button onclick="todoDelete(1)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>대기 기사 2020년도 4회차</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="todoToggle(2,true)">
+○
+</button>
+
+
+<button class="complete" onclick="todoToggle(2,false)">
+✕
+</button>
+
+
+<button onclick="todoDelete(2)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>대기 기사 2021년도 1, 2, 3 회차</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="todoToggle(3,true)">
+○
+</button>
+
+
+<button class="complete" onclick="todoToggle(3,false)">
+✕
+</button>
+
+
+<button onclick="todoDelete(3)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+<!-- ROUTINE -->
+
+<div id="routine" class="page">
+
+
+<div class="card">
+
+
+<div class="title">
+🌱 나의 루틴
+</div>
+
+
+<input id="routineInput" placeholder="새 루틴 추가">
+
+
+<button class="add-btn" id="addRoutineBtn">
+추가
+</button>
+
+
+<div id="routineList">
+
+<div class="item">
+
+
+<span>8시 기상</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="routineToggle('8시 기상')">
+
+✕
+
+</button>
+
+
+<button onclick="routineDelete(0)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>아침 스트레칭 및 괄사</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="routineToggle('아침 스트레칭 및 괄사')">
+
+✕
+
+</button>
+
+
+<button onclick="routineDelete(1)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>하루 일정 정리</span>
+
+
+<div class="action">
+
+
+<button class="complete" onclick="routineToggle('하루 일정 정리')">
+
+○
+
+</button>
+
+
+<button onclick="routineDelete(2)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>저녁 일기 및 감사 일기 작성</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="routineToggle('저녁 일기 및 감사 일기 작성')">
+
+✕
+
+</button>
+
+
+<button onclick="routineDelete(3)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>저녁 스트레칭 및 괄사</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="routineToggle('저녁 스트레칭 및 괄사')">
+
+✕
+
+</button>
+
+
+<button onclick="routineDelete(4)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- STUDY -->
+
+<div id="study" class="page">
+
+
+<div class="card">
+
+<div class="title">
+📚 시험 관리
+</div>
+
+
+<input id="examName" placeholder="시험 이름">
+
+
+<input id="examDate" type="date">
+
+
+<button class="add-btn" id="saveExamBtn">
+저장
+</button>
+
+
+<div id="examInfo">
+
+<h3>
+대기환경기사 실기
+</h3>
+
+
+<div class="dday">
+
+D-24
+
+</div>
+
+
+<p>
+진도율 0%
+</p>
+
+
+<div class="progress">
+
+<div class="progress-bar" style="width:0%">
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<div class="card">
+
+
+<div class="title">
+시험 전 해야 할 일
+</div>
+
+
+<input id="studyInput" placeholder="진도 항목">
+
+
+<button class="add-btn" id="addStudyBtn">
+추가
+</button>
+
+
+<div id="studyList">
+
+<div class="item">
+
+
+<span>
+나합격 2016 - 2025 계산 문제 1회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(0)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(0)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+나합격 2016 - 2025 전체 1회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(1)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(1)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+직8딴 전체 1회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(2)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(2)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+직8딴 전체 2회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(3)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(3)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+관련 정리본 1회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(4)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(4)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+관련 정리본 2회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(5)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(5)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="item">
+
+
+<span>
+관련 정리본 3회독
+</span>
+
+
+<div class="action">
+
+
+<button class="incomplete" onclick="studyToggle(6)">
+
+✕
+
+</button>
+
+
+<button onclick="studyDelete(6)">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- CALENDAR -->
+
+
+<div id="calendar" class="page">
+
+
+<div class="card">
+
+
+<div class="title">
+📅 일정
+</div>
+
+
+<input id="eventDate" type="date" style="margin-bottom:8px;">\n<input id="eventInput" placeholder="일정 입력">
+
+
+<button class="add-btn" id="addEventBtn">
+추가
+</button>
+
+
+<div id="eventList">
+
+<div class="item">
+
+
+<span>
+10/21 한국수력원자력 청년 인턴 접수
+</span>
+
+
+<button onclick="eventDelete(0)">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="item">
+
+
+<span>
+10/22 현대사회와 실용글쓰기 시험
+</span>
+
+
+<button onclick="eventDelete(1)">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="item">
+
+
+<span>
+10/26 수질오염모델링 시험
+</span>
+
+
+<button onclick="eventDelete(2)">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="item">
+
+
+<span>
+10/27 지하수 시험
+</span>
+
+
+<button onclick="eventDelete(3)">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+// ==========================
+// 데이터 관리
+// ==========================
+
+
+const STORAGE_KEY="GreenDay_v6";
+
+
+
+let appData =
+JSON.parse(
+localStorage.getItem(STORAGE_KEY)
+)
+||
+{
+
+dates:{},
+
+routines:[],
+
+exam:null,
+
+study:[]
+
+};
+
+
+
+
+
+let now = new Date();
+let selectedDate =
+now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,'0')+"-"+String(now.getDate()).padStart(2,'0');
+
+
+
+
+const dateInput =
+document.getElementById("selectedDate");
+
+
+
+dateInput.value=
+selectedDate;
+
+
+
+
+
+
+function ensureDate(){
+
+
+if(!appData.dates[selectedDate]){
+
+
+appData.dates[selectedDate]={
+
+todo:[],
+
+routineDone:[],
+
+events:[]
+
+};
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+function saveData(){
+
+
+localStorage.setItem(
+
+STORAGE_KEY,
+
+JSON.stringify(appData)
+
+);
+
+
+render();
+
+}
+
+
+
+
+
+
+
+dateInput.onchange=function(){
+
+
+selectedDate=this.value;
+
+
+ensureDate();
+
+
+render();
+
+
+};
+
+
+
+
+
+
+
+// ==========================
+// 메뉴
+// ==========================
+
+
+document
+.querySelectorAll(".menu button")
+.forEach(btn=>{
+
+
+btn.onclick=function(){
+
+
+document
+.querySelectorAll(".menu button")
+.forEach(
+b=>b.classList.remove("active")
+);
+
+
+
+btn.classList.add("active");
+
+
+
+document
+.querySelectorAll(".page")
+.forEach(
+p=>p.classList.remove("active")
+);
+
+
+
+document
+.getElementById(
+btn.dataset.page
+)
+.classList.add("active");
+
+
+};
+
+
+});
+
+
+
+
+
+
+
+
+// ==========================
+// TODO
+// ==========================
+
+
+const todoInput=
+document.getElementById("todoInput");
+
+
+document
+.getElementById("addTodoBtn")
+.onclick=function(){
+
+
+let text=
+todoInput.value.trim();
+
+
+
+if(!text)return;
+
+
+
+ensureDate();
+
+
+
+appData
+.dates[selectedDate]
+.todo
+.push({
+
+text:text,
+
+done:false
+
+});
+
+
+
+todoInput.value="";
+
+
+saveData();
+
+
+};
+
+
+
+
+
+
+function todoToggle(index,state){
+
+
+appData
+.dates[selectedDate]
+.todo[index]
+.done=state;
+
+
+saveData();
+
+
+}
+
+
+
+
+function todoDelete(index){
+
+
+appData
+.dates[selectedDate]
+.todo
+.splice(index,1);
+
+
+saveData();
+
+
+}
+
+
+
+
+
+
+
+function renderTodo(){
+
+
+let list=
+document.getElementById("todoList");
+
+
+let home=
+document.getElementById("homeTodo");
+
+
+list.innerHTML="";
+
+home.innerHTML="";
+
+
+
+let todos=
+appData
+.dates[selectedDate]
+.todo;
+
+
+
+if(todos.length===0){
+
+list.innerHTML="등록된 할 일 없음";
+
+home.innerHTML="없음";
+
+return;
+
+}
+
+
+
+
+todos.forEach((item,index)=>{
+
+
+list.innerHTML+=`
+
+<div class="item">
+
+
+<span contenteditable="true" onblur="todoTextEdit(${index},this.innerText)">${item.text}</span>
+
+
+<div class="action">
+
+
+<button class="${item.done?'complete':'incomplete'} check-o"
+onclick="todoToggle(${index},true)">
+○
+</button>
+
+
+<button class="${!item.done?'complete':'incomplete'} check-x"
+onclick="todoToggle(${index},false)">
+✕
+</button>
+
+
+<button onclick="todoDelete(${index})">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+
+home.innerHTML+=
+
+`${item.done?'🟢':'⚪'} ${item.text}<br>`;
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+// ==========================
+// ROUTINE
+// ==========================
+
+
+document
+.getElementById("addRoutineBtn")
+.onclick=function(){
+
+
+let input=
+document.getElementById("routineInput");
+
+
+let text=
+input.value.trim();
+
+
+
+if(!text)return;
+
+
+
+appData.routines.push(text);
+
+
+
+input.value="";
+
+
+saveData();
+
+
+};
+
+
+
+
+
+
+function routineToggle(name){
+
+
+let arr=
+appData
+.dates[selectedDate]
+.routineDone;
+
+
+
+let index=
+arr.indexOf(name);
+
+
+
+if(index>=0){
+
+arr.splice(index,1);
+
+}
+
+else{
+
+arr.push(name);
+
+}
+
+
+
+saveData();
+
+
+}
+
+
+
+
+function routineDelete(index){
+
+
+appData.routines.splice(index,1);
+
+
+saveData();
+
+
+}
+
+
+
+
+function renderRoutine(){
+
+
+let list=
+document.getElementById("routineList");
+
+
+let home=
+document.getElementById("homeRoutine");
+
+
+list.innerHTML="";
+
+home.innerHTML="";
+
+
+
+appData.routines.forEach((r,index)=>{
+
+
+let checked=
+appData
+.dates[selectedDate]
+.routineDone
+.includes(r);
+
+
+
+list.innerHTML+=`
+
+<div class="item">
+
+
+<span contenteditable="true" onblur="routineTextEdit(${index},this.innerText)">${r}</span>
+
+
+<div class="action">
+
+
+<button class="${checked?'complete':'incomplete'} check-o" class="${checked?'complete':'incomplete'} check-o" onclick="routineToggle('${r}')">○</button>
+<button class="${checked?'incomplete':'complete'} check-x" onclick="routineToggle('${r}')">✕</button>
+
+
+<button onclick="routineDelete(${index})">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+
+home.innerHTML+=
+
+`${checked?'🟢':'⚪'} ${r}<br>`;
+
+
+});
+
+
+}
+
+id="study-event-code"
+
+// ==========================
+// STUDY (시험)
+// ==========================
+
+
+document
+.getElementById("saveExamBtn")
+.onclick=function(){
+
+
+let name=
+document.getElementById("examName")
+.value.trim();
+
+
+let date=
+document.getElementById("examDate")
+.value;
+
+
+
+if(!name || !date) return;
+
+
+
+appData.exam={
+
+name:name,
+
+date:date
+
+};
+
+
+
+saveData();
+
+
+};
+
+
+
+
+
+
+
+document
+.getElementById("addStudyBtn")
+.onclick=function(){
+
+
+let input=
+document.getElementById("studyInput");
+
+
+let text=
+input.value.trim();
+
+
+
+if(!text)return;
+
+
+
+appData.study.push({
+
+text:text,
+
+done:false
+
+});
+
+
+
+input.value="";
+
+
+saveData();
+
+
+};
+
+
+
+
+
+
+function studyToggle(index){
+
+
+appData.study[index].done=
+!appData.study[index].done;
+
+
+saveData();
+
+
+}
+
+
+
+
+function studyDelete(index){
+
+
+appData.study.splice(index,1);
+
+
+saveData();
+
+
+}
+
+
+
+
+
+function renderStudy(){
+
+
+let list=
+document.getElementById("studyList");
+
+
+let box=
+document.getElementById("examInfo");
+
+
+let home=
+document.getElementById("homeStudy");
+
+
+list.innerHTML="";
+
+
+
+let complete=0;
+
+
+
+appData.study.forEach((s,index)=>{
+
+
+if(s.done)
+complete++;
+
+
+
+list.innerHTML+=`
+
+<div class="item">
+
+
+<span contenteditable="true" onblur="studyTextEdit(${index},this.innerText)">
+${s.text}
+</span>
+
+
+<div class="action">
+
+
+<button class="${s.done?'complete':'incomplete'} check-o" onclick="studyToggle(${index})">○</button>
+<button class="${s.done?'incomplete':'complete'} check-x" onclick="studyToggle(${index})">✕</button>
+
+
+<button onclick="studyDelete(${index})">
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+
+
+let percent=
+appData.study.length
+?
+Math.round(
+complete/appData.study.length*100
+)
+:
+0;
+
+
+
+if(appData.exam){
+
+
+
+let today=
+new Date();
+
+
+
+let examDay=
+new Date(appData.exam.date);
+
+
+
+let gap=
+Math.ceil(
+(examDay-today)
+/
+(1000*60*60*24)
+);
+
+
+
+box.innerHTML=`
+
+<h3>
+${appData.exam.name}
+</h3>
+
+
+<div class="dday">
+
+D-${gap}
+
+</div>
+
+
+<p>
+진도율 ${percent}%
+</p>
+
+
+<div class="progress">
+
+<div class="progress-bar"
+style="width:${percent}%">
+</div>
+
+</div>
+
+
+`;
+
+
+
+home.innerHTML=
+
+`
+<b>${appData.exam.name}</b><br>
+
+D-${gap}<br>
+
+진도율 ${percent}%
+
+`;
+
+
+
+}
+
+else{
+
+
+box.innerHTML=
+"등록된 시험 없음";
+
+
+home.innerHTML=
+"시험 없음";
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+// ==========================
+// CALENDAR (일정)
+// ==========================
+
+
+
+document
+.getElementById("addEventBtn")
+.onclick=function(){
+
+
+let input=
+document.getElementById("eventInput");
+
+
+let text=
+input.value.trim();
+
+
+
+if(!text)return;
+
+
+
+ensureDate();
+
+
+
+let eventDate =
+document.getElementById("eventDate").value || selectedDate;
+
+if(!appData.dates[eventDate]){
+    appData.dates[eventDate]={
+        todo:[],
+        routineDone:[],
+        events:[]
+    };
+}
+
+appData.dates[eventDate]
+.events
+.push(text);
+
+
+
+input.value="";
+
+
+saveData();
+
+
+};
+
+
+
+
+
+
+
+function eventDelete(index){
+
+let events=[];
+
+Object.keys(appData.dates).forEach(date=>{
+    if(appData.dates[date].events){
+        appData.dates[date].events.forEach((e)=>{
+            events.push({date:date,text:e});
+        });
+    }
+});
+
+let target=events[index];
+
+if(target){
+    appData.dates[target.date].events.splice(
+        appData.dates[target.date].events.indexOf(target.text),1
+    );
+}
+
+saveData();
+
+}
+
+
+
+
+function renderEvent(){
+
+
+let list=
+document.getElementById("eventList");
+
+
+let home=
+document.getElementById("homeEvent");
+
+
+list.innerHTML="";
+
+home.innerHTML="";
+
+
+
+let events=[];
+
+Object.keys(appData.dates).forEach(date=>{
+    if(appData.dates[date].events){
+        appData.dates[date].events.forEach(e=>{
+            events.push({
+                date:date,
+                text:e
+            });
+        });
+    }
+});
+
+
+
+if(events.length===0){
+
+
+list.innerHTML=
+"등록된 일정 없음";
+
+
+home.innerHTML=
+"일정 없음";
+
+
+return;
+
+}
+
+
+
+events.forEach((e,index)=>{
+
+
+list.innerHTML+=`
+
+<div class="item">
+
+
+<span contenteditable="true" onblur="eventTextEdit(${index},this.innerText)">
+${e.date.slice(5).replace('-','/')} · ${e.text}
+</span>
+
+
+<button onclick="eventDelete(${index})">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+
+// 홈 화면은 달력 형광 표시만 유지 (일정 리스트 숨김)
+
+
+
+});
+
+
+
+}
+
+
+function renderHomeCalendar(){
+ let box=document.getElementById("homeEventCalendar");
+ if(!box)return;
+ let d=new Date(selectedDate);
+ let y=d.getFullYear(), m=d.getMonth();
+ let first=new Date(y,m,1).getDay();
+ let last=new Date(y,m+1,0).getDate();
+ box.innerHTML='<div style="font-weight:bold;margin-bottom:10px">'+(m+1)+'월 일정</div><div class="home-calendar"></div>';
+ let grid=box.querySelector('.home-calendar');
+ for(let i=0;i<first;i++) grid.innerHTML+='<span></span>';
+ for(let i=1;i<=last;i++){
+  let key=y+'-'+String(m+1).padStart(2,'0')+'-'+String(i).padStart(2,'0');
+  let has=appData.dates[key] && appData.dates[key].events && appData.dates[key].events.length;
+  grid.innerHTML+='<span class="'+(has?'event-mark':'')+'"><b>'+i+'</b></span>';
+ }
+}
+
+// ==========================
+// HOME 달성률
+// ==========================
+
+
+function updateTotal(){
+
+
+let todos =
+appData
+.dates[selectedDate]
+.todo;
+
+
+
+let todoTotal =
+todos.length;
+
+
+
+let todoDone =
+todos.filter(
+x=>x.done
+).length;
+
+
+
+let routineTotal =
+appData.routines.length;
+
+
+
+let routineDone =
+appData
+.dates[selectedDate]
+.routineDone
+.length;
+
+
+
+let total =
+todoTotal+routineTotal;
+
+
+
+let done =
+todoDone+routineDone;
+
+
+
+let percent =
+total
+?
+Math.round(done/total*100)
+:
+0;
+
+
+
+document
+.getElementById("totalPercent")
+.innerHTML=
+percent+"%";
+
+
+
+document
+.getElementById("totalBar")
+.style.width=
+percent+"%";
+
+
+
+}
+
+
+
+
+
+
+
+
+function renderDateSelector(){
+let box=document.getElementById("dateSelector");
+let month=document.getElementById("monthLabel");
+if(!box)return;
+
+let d=new Date(selectedDate);
+month.innerHTML=(d.getMonth()+1)+"월";
+
+box.innerHTML="";
+for(let i=11;i<=17;i++){
+let day=new Date(d.getFullYear(),d.getMonth(),i);
+let btn=document.createElement("button");
+let dayKey = day.getFullYear()+"-"+String(day.getMonth()+1).padStart(2,'0')+"-"+String(i).padStart(2,'0');
+
+
+btn.className="date-btn "+(i==d.getDate()?"active ":"");
+btn.innerHTML=i;
+btn.onclick=function(){
+selectedDate=day.getFullYear()+"-"+String(day.getMonth()+1).padStart(2,'0')+"-"+String(day.getDate()).padStart(2,'0');
+dateInput.value=selectedDate;
+ensureDate();
+render();
+};
+box.appendChild(btn);
+}
+}
+
+// ==========================
+// 전체 렌더링
+// ==========================
+
+
+function render(){
+
+
+renderDateSelector();
+ensureDate();
+let eventDateInput=document.getElementById("eventDate");
+if(eventDateInput) eventDateInput.value=selectedDate;
+
+
+renderTodo();
+
+
+renderRoutine();
+
+
+renderStudy();
+
+
+renderEvent();
+
+renderHomeCalendar();
+
+
+updateTotal();
+
+
+}
+
+
+
+
+
+
+
+
+// 항목 글씨 바로 수정
+function todoTextEdit(index,text){
+ if(text.trim()) { appData.dates[selectedDate].todo[index].text=text.trim(); saveData(); }
+}
+function routineTextEdit(index,text){
+ if(text.trim()) { appData.routines[index]=text.trim(); saveData(); }
+}
+function studyTextEdit(index,text){
+ if(text.trim()) { appData.study[index].text=text.trim(); saveData(); }
+}
+function eventTextEdit(index,text){
+ let events=[];
+ Object.keys(appData.dates).forEach(date=>{(appData.dates[date].events||[]).forEach(e=>events.push({date,text:e}));});
+ let target=events[index];
+ if(target && text.trim()){
+  let i=appData.dates[target.date].events.indexOf(target.text);
+  appData.dates[target.date].events[i]=text.trim().replace(/^\d+\/\d+ · /,'');
+  saveData();
+ }
+}
+
+// 항목 수정
+function todoEdit(index){
+ let v=prompt("할 일 수정", appData.dates[selectedDate].todo[index].text);
+ if(v!==null && v.trim()){ appData.dates[selectedDate].todo[index].text=v.trim(); saveData(); }
+}
+function routineEdit(index){
+ let old=appData.routines[index];
+ let v=prompt("루틴 수정", old);
+ if(v!==null && v.trim()){ appData.routines[index]=v.trim(); saveData(); }
+}
+function studyEdit(index){
+ let v=prompt("공부 항목 수정", appData.study[index].text);
+ if(v!==null && v.trim()){ appData.study[index].text=v.trim(); saveData(); }
+}
+function eventEdit(index){
+ let events=[];
+ Object.keys(appData.dates).forEach(date=>{
+  (appData.dates[date].events||[]).forEach(e=>events.push({date,text:e}));
+ });
+ let target=events[index];
+ if(!target)return;
+ let v=prompt("일정 수정", target.text);
+ if(v!==null && v.trim()){
+  let i=appData.dates[target.date].events.indexOf(target.text);
+  appData.dates[target.date].events[i]=v.trim();
+  saveData();
+ }
+}
+
+// ==========================
+// 시작
+// ==========================
+
+
+ensureDate();
+
+render();
+
+
+
+</script>
+
+
+
+
+
+
+</body></html>
